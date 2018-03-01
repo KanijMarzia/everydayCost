@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorControlHighlight">#908f94</color>
+    <color name="colorButtonNormal">#808080</color>
+    <color name="colorPrimaryDate">#908f94</color>
+    <color name="indigo">#303F9F</color>
+    <color name="pink">#d896d9</color>
+</resources>
