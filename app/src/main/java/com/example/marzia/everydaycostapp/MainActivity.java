@@ -1,15 +1,21 @@
 package com.example.marzia.everydaycostapp;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.icu.util.Calendar;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -19,14 +25,37 @@ public class MainActivity extends AppCompatActivity {
     EditText dateEDT,transportEDT,foodEDT,otherEDT,SalaryEDT;
     TextView showTotal,addSalaryTXT;
     Button totalCal,showRecordBTN,addBTN,AddSalaryBTN;
+    @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         dateEDT=(EditText)findViewById(R.id.date_edt);
+        dateEDT.setOnClickListener(new View.OnClickListener() {
+
+            Calendar rightNow = Calendar.getInstance();
+            int year = rightNow.get(Calendar.YEAR);
+            int month = rightNow.get(Calendar.MONTH) + 1;
+            int day = rightNow.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    dateEDT.setText(dayOfMonth + "/" + month + "/" + year);
+                }
+            };
+
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datepicker = new DatePickerDialog(MainActivity.this, dateSetListener, year, month, day);
+
+                datepicker.show();
+
+            }
+
+        });
         transportEDT=(EditText)findViewById(R.id.transport_edt);
         foodEDT=(EditText)findViewById(R.id.food_cost_edt);
         otherEDT=(EditText)findViewById(R.id.other_cost_edt);
@@ -42,24 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
         totalCal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //if(dateEDT.)
-
-
-
-
-
-
                 if(!dateEDT.getText().toString().equals("") && !transportEDT.getText().toString().equals("") && !foodEDT.getText().toString().equals("") && !otherEDT.getText().toString().equals("") ){
 
                     CostCalculation calculation=new CostCalculation();
-
-                    //String datestr=dateEDT.getText().toString().trim();
 
                     double trnsport,food,other;
 
@@ -86,12 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     AlertDialog alertDialog= dialog.create();
                     alertDialog.show();
 
-
                 }
-//
-//
-
-
 
             }
         });
@@ -101,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(!dateEDT.getText().toString().equals("") && !transportEDT.getText().toString().equals("") && !foodEDT.getText().toString().equals("") && !otherEDT.getText().toString().equals("") ){
-
 
                     final AlertDialog.Builder dialog=new AlertDialog.Builder(MainActivity.this);
 
